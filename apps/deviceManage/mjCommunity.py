@@ -15,8 +15,6 @@ import binascii
 #5、对接收到的数据包进行解析
 
 
-
-
 #定义短报文包的类
 class WGPaketShort:
     '短报文类，实现发送短报文和收到返回短报文的功能'
@@ -26,43 +24,47 @@ class WGPaketShort:
     ControllerPort = 60000
     SpecialFlag = 0x55AAAA55
     WGPacketSize = 64
-    #data = [0 for i in range(WGPacketSize)]
 
-    def __init__(self, ip, dev_sn, func_ID, door_id = 0):
+    def __init__(self, ip, dev_sn, func_id):
+        #self.udp_data = [0 for i in range(WGPaketShort.WGPacketSize)]
+        self.udp_data = bytearray(WGPaketShort.WGPacketSize)
+        self.udp_data[0] = WGPaketShort.Type
+        self.udp_data[1] = func_id
+        self.udp_data[4:8] = dev_sn.to_bytes(4, byteorder='little')
         self.ip = ip
-        self.dev_sn = dev_sn
-        self.func_ID = func_ID
-        self.door_id = door_id
+        self.rec_data = None
 
     #发送短报文功能
     def send_data(self):
-        #values = (WGPaketShort.Type, self.func_ID, 0, self.dev_sn, self.door_id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-        #s = struct.Struct('<BBHIIIIIIIIIIIIIII')
-        s1 = bytearray(32)
-        s2 = bytearray(20)
-        values = (WGPaketShort.Type, self.func_ID, 0, self.dev_sn, s1, 0, s2)
-        s = struct.Struct('<BBHI32sI20s')
-        packed_data = s.pack(*values)
+        #s1 = bytearray(32)
+        #s2 = bytearray(20)
+        #values = (WGPaketShort.Type, self.func_ID, 0, self.dev_sn, s1, 0, s2)
+        #s = struct.Struct('<BBHI32sI20s')
+        #packed_data = s.pack(*values)
         #unpacked_data = s.unpack(packed_data)
-        print(s.size)
-        print(packed_data)
-
+        #print(s.size)
+        #print(packed_data)
 
         udp_cli_socket = socket(AF_INET, SOCK_DGRAM)
 
         # 定义UDP数据包
 
         ip = '192.168.0.99'
-        ADDR = (ip, WGPaketShort.ControllerPort)
+        ADDR = (self.ip, WGPaketShort.ControllerPort)
 
         try:
-            udp_cli_socket.sendto(packed_data, ADDR)
-            rec_data, ADDR = udp_cli_socket.recvfrom(WGPaketShort.WGPacketSize)
-            rec = s.unpack(rec_data)
-            print(rec_data)
-            if len(rec_data) == WGPaketShort.WGPacketSize:
-                if rec[0] == values[0] and rec[1] == values[1]:
-                    x = rec_data
+            udp_cli_socket.sendto(self.udp_data, ADDR)
+            self.rec_data, ADDR = udp_cli_socket.recvfrom(WGPaketShort.WGPacketSize)
+            #rec = s.unpack(rec_data)
+            print(self.rec_data[4:8])
+            b = self.rec_data[4:8]
+            i = int.from_bytes(b, byteorder = 'little')
+            print(i)
+            print(self.rec_data[0])
+            print(self.rec_data)
+            if len(self.rec_data) == WGPaketShort.WGPacketSize:
+                if self.rec_data[0] == self.udp_data[0] and self.rec_data[1] == self.udp_data[1]:
+                    x = self.rec_data
                     return x
                 else:
                     x = 't'
