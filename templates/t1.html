@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+     <form action='/search/'>
+         <button value="submit">搜索控制器</button>
+     </form>
      <form action='/open_door/'>
          <button value="submit">开门</button>
      </form>
@@ -12,6 +15,11 @@
      <form action='/show_devinfo/'>
          <button value="submit">查看设备状态</button>
      </form>
-     <label>{{ x }}</label>
+     <label>设备SN:</label>
+     <label>{{ x }}</label><br>
+     <label>控制器IP:</label>
+     <label>{{ y }}</label><br>
+     <label>设备硬件版本：</label>
+     <label>{{ z }}</label>
 </body>
 </html>

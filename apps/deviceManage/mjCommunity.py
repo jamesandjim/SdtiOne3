@@ -6,7 +6,7 @@
 # @File    : mj_communication.py
 # @Software: PyCharm
 
-from socket import *
+import socket
 import struct
 import binascii
 
@@ -26,38 +26,35 @@ class WGPaketShort:
     WGPacketSize = 64
 
     def __init__(self, ip, dev_sn, func_id):
-        #self.udp_data = [0 for i in range(WGPaketShort.WGPacketSize)]
+
         self.udp_data = bytearray(WGPaketShort.WGPacketSize)
         self.udp_data[0] = WGPaketShort.Type
         self.udp_data[1] = func_id
         self.udp_data[4:8] = dev_sn.to_bytes(4, byteorder='little')
-        self.ip = ip
+        if func_id == 0x94:
+            self.ip = '255.255.255.255'
+        else:
+            self.ip = ip
+
         self.rec_data = None
 
     #发送短报文功能
     def send_data(self):
-        #s1 = bytearray(32)
-        #s2 = bytearray(20)
-        #values = (WGPaketShort.Type, self.func_ID, 0, self.dev_sn, s1, 0, s2)
-        #s = struct.Struct('<BBHI32sI20s')
-        #packed_data = s.pack(*values)
-        #unpacked_data = s.unpack(packed_data)
-        #print(s.size)
-        #print(packed_data)
-
-        udp_cli_socket = socket(AF_INET, SOCK_DGRAM)
+       #建立UDP
+        udp_cli_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
         # 定义UDP数据包
 
-        ip = '192.168.0.99'
         ADDR = (self.ip, WGPaketShort.ControllerPort)
-
+       #设置UDP的选项：允许其发送广播包（地址255.255.255.255），第一个参数代表当前UDP，第二个是表示套接字广播选项，第三个表示为真
+        udp_cli_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, True)
         try:
             udp_cli_socket.sendto(self.udp_data, ADDR)
             self.rec_data, ADDR = udp_cli_socket.recvfrom(WGPaketShort.WGPacketSize)
-            #rec = s.unpack(rec_data)
+
             print(self.rec_data[4:8])
             b = self.rec_data[4:8]
+            #将字节转换为INT，格式为低位在前
             i = int.from_bytes(b, byteorder = 'little')
             print(i)
             print(self.rec_data[0])
@@ -73,8 +70,8 @@ class WGPaketShort:
                 x = 'no'
                 return x
 
-        except error:
-            print(error.message)
+        except OSError:
+            print(OSError.errno)
 
         udp_cli_socket.close()
 

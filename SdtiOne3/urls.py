@@ -22,6 +22,7 @@ from deviceManage import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^test/', TemplateView.as_view(template_name='t1.html')),
+    url(r'^search/', views.search_devs),
     url(r'^open_door/', views.open_door),
     url(r'^show_devinfo/', views.show_devinfo)
 
