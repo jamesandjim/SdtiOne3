@@ -22,12 +22,14 @@ def search_devs(request):
         dev_netmask = dev.rec_data[12:16]
         dev_netgate = dev.rec_data[16:20]
         dev_mac = dev.rec_data[20:26]
-        dev_ver = dev.rec_data[26:28]
+        dev_ver = int.from_bytes(dev.rec_data[27:28], byteorder='big')
+        dev_ver1 = dev_ver-(dev_ver/16)*6
+        print(dev_ver1)
         dev_d = dev.rec_data[28:32]
 
         result = int.from_bytes(dev_sn, byteorder='little')
 
-    return render(request, 't1.html', {'x': result,'y':dev_ip, 'z':dev_ver})
+    return render(request, 't1.html', {'x': result,'y':dev_ip, 'z':dev_ver1})
 
 #开门功能
 def open_door(request):
