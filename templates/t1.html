@@ -16,10 +16,18 @@
          <button value="submit">查看设备状态</button>
      </form>
      <label>设备SN:</label>
-     <label>{{ x }}</label><br>
+     <label>{{ rt_dev_sn }}</label><br>
      <label>控制器IP:</label>
-     <label>{{ y }}</label><br>
+     <label>{{ rt_dev_ip }}</label><br>
+     <label>控制器子网掩码:</label>
+     <label>{{ rt_dev_netmask }}</label><br>
+     <label>控制器网关:</label>
+     <label>{{ rt_dev_netgate}}</label><br>
+     <label>控制器mac:</label>
+     <label>{{ rt_dev_mac }}</label><br>
      <label>设备硬件版本：</label>
-     <label>{{ z }}</label>
+     <label>{{ rt_dev_ver }}</label><br>
+     <label>设备硬件版本时间：</label>
+     <label>{{ rt_dev_date }}</label>
 </body>
 </html>

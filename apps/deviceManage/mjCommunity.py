@@ -52,13 +52,10 @@ class WGPaketShort:
             udp_cli_socket.sendto(self.udp_data, ADDR)
             self.rec_data, ADDR = udp_cli_socket.recvfrom(WGPaketShort.WGPacketSize)
 
-            print(self.rec_data[4:8])
             b = self.rec_data[4:8]
             #将字节转换为INT，格式为低位在前
-            i = int.from_bytes(b, byteorder = 'little')
-            print(i)
-            print(self.rec_data[0])
-            print(self.rec_data)
+            i = int.from_bytes(b, byteorder='little')
+
             if len(self.rec_data) == WGPaketShort.WGPacketSize:
                 if self.rec_data[0] == self.udp_data[0] and self.rec_data[1] == self.udp_data[1]:
                     x = self.rec_data
