@@ -17,13 +17,11 @@ from django.conf.urls import url
 from django.views.generic import TemplateView
 from django.contrib import admin
 
-from deviceManage import views
+from deviceManage.views import DeviceSet
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^test/', TemplateView.as_view(template_name='t1.html')),
-    url(r'^search/', views.search_devs),
-    url(r'^open_door/', views.open_door),
-    url(r'^show_devinfo/', views.show_devinfo)
+    url(r'^deviceSet/', DeviceSet.as_view()),
 
     ]

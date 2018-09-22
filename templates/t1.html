@@ -5,29 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-     <form action='/search/'>
-         <button value="submit">搜索控制器</button>
-     </form>
-     <form action='/open_door/'>
-         <button value="submit">开门</button>
+     <form action='/deviceSet/' method="post">
+          {% csrf_token %}
+          <input type="submit" name="search_dev" value="搜索控制器"/>
+          <input type="submit" name="update_dev" value="修改控制器IP"/>
+          <input type="submit" name="open_door" value="远程开门"/><br>
+
+              设备SN:   <input type="text" name="dev_sn" readonly="readonly" value={{ rt_dev_sn }}><br>
+              控制器IP: <input type="text" name="dev_ip" value={{ rt_dev_ip }}><br>
+              控制器子网掩码:<input type="text" name="dev_netmask" value={{ rt_dev_netmask }}><br>
+              控制器网关:<input type="text" name="dev_netgate" value={{ rt_dev_netgate }}><br>
+              控制器mac:<input type="text" name="dev_mac" value={{ rt_dev_mac }}><br>
+              设备硬件版本：<input type="text" name="dev_ver" value={{ rt_dev_ver }}><br>
+
      </form>
 
-     <form action='/show_devinfo/'>
-         <button value="submit">查看设备状态</button>
-     </form>
-     <label>设备SN:</label>
-     <label>{{ rt_dev_sn }}</label><br>
-     <label>控制器IP:</label>
-     <label>{{ rt_dev_ip }}</label><br>
-     <label>控制器子网掩码:</label>
-     <label>{{ rt_dev_netmask }}</label><br>
-     <label>控制器网关:</label>
-     <label>{{ rt_dev_netgate}}</label><br>
-     <label>控制器mac:</label>
-     <label>{{ rt_dev_mac }}</label><br>
-     <label>设备硬件版本：</label>
-     <label>{{ rt_dev_ver }}</label><br>
-     <label>设备硬件版本时间：</label>
-     <label>{{ rt_dev_date }}</label>
 </body>
 </html>
