@@ -9,6 +9,7 @@
           {% csrf_token %}
           <input type="submit" name="search_dev" value="搜索控制器"/>
           <input type="submit" name="update_dev" value="修改控制器IP"/>
+          <input type="submit" name="show_devinfo" value="查询控制器状态"/>
           <input type="submit" name="open_door" value="远程开门"/><br>
 
               设备SN:   <input type="text" name="dev_sn" readonly="readonly" value={{ rt_dev_sn }}><br>
@@ -17,6 +18,18 @@
               控制器网关:<input type="text" name="dev_netgate" value={{ rt_dev_netgate }}><br>
               控制器mac:<input type="text" name="dev_mac" value={{ rt_dev_mac }}><br>
               设备硬件版本：<input type="text" name="dev_ver" value={{ rt_dev_ver }}><br>
+              <HR align=left width=90% color=#987cb9 SIZE=1>
+
+
+              记录号:<input type="text" name="cn_last_no" readonly="readonly" value={{ cn_last_no }}><br>
+              记录类型: <input type="text" name="cn_no_type" value={{ cn_no_type }}><br>
+              是否通过:<input type="text" name="cn_yn" value={{ cn_yn }}><br>
+              门名称:<input type="text" name="cn_door_no" value={{ cn_door_no }}><br>
+              进出方向:<input type="text" name="cn_in_out" value={{ cn_in_out }}><br>
+              卡号:<input type="text" name="cn_card_no" value={{ cn_card_no }}><br>
+
+
+
 
      </form>
 

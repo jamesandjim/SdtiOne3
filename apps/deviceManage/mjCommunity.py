@@ -52,19 +52,21 @@ class WGPaketShort:
 
             if len(self.rec_data) == WGPaketShort.WGPacketSize:
                 if self.rec_data[0] == self.udp_data[0] and self.rec_data[1] == self.udp_data[1]:
-                    x = self.rec_data
-                    return x
+                    #x = self.rec_data
+                    udp_cli_socket.close()
+                    return True
                 else:
-                    x = 't'
-                    return x
+                    udp_cli_socket.close()
+                    return False
             else:
-                x = 'no'
-                return x
+                udp_cli_socket.close()
+                return False
 
         except OSError:
             print(OSError.errno)
+            udp_cli_socket.close()
 
-        udp_cli_socket.close()
+
 
 
 

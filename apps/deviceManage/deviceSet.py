@@ -1,11 +1,12 @@
 from deviceManage.mjCommunity import WGPaketShort
+from deviceManage.devicestatustostr import byteinfotostr
 
 
 # 搜索控制器
 def search_dev():
     dev = WGPaketShort('255.255.255.255', 0, 0x94)
-    dev.send_data()
-    if dev.rec_data[0] == 0x17 and dev.rec_data[1] == 0x94:
+    ret = dev.send_data()
+    if ret is True:
         # 从返回值取得设备的SN,并以低位在前的方式，将字节码转为int
         dev_sn = dev.rec_data[4:8]
         rt_dev_sn = int.from_bytes(dev_sn, byteorder='little')
@@ -69,5 +70,17 @@ def set_ip(ip, sn, netmask, netgate):
 
     dev.send_data()
 
-    return None
+    return True
 
+
+# 查询控制器状态
+def show_dev_info(ip, sn):
+    dev = WGPaketShort(ip, int(sn), 0x20)
+    ret = dev.send_data()
+
+    if ret is True and dev.udp_data[4:8] == dev.rec_data[4:8]:
+        rt_data = dev.rec_data
+
+        dd = byteinfotostr(rt_data)
+        print(dd)
+        return dd

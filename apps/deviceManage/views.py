@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.base import View
 
 from deviceManage.mjCommunity import WGPaketShort
-from deviceManage.deviceSet import search_dev, set_ip
+from deviceManage.deviceSet import search_dev, set_ip, show_dev_info
 
 
 # Create your views here.
@@ -26,6 +26,11 @@ class DeviceSet(View):
             set_ip(dev_ip, dev_sn, dev_netmask, dev_netgate)
 
             return redirect('http://127.0.0.1:8000/test/')
+        elif request.POST.get('show_devinfo'):
+            dev_ip = request.POST.get("dev_ip")
+            dev_sn = int(request.POST.get("dev_sn"))
+            data = show_dev_info(dev_ip, dev_sn)
+            return render(request, 't1.html', data)
         else:
             pass
 
@@ -45,11 +50,3 @@ def open_door(request):
 
     return render(request, 't1.html', {'x': result})
 
-
-# 显示设备信息
-def show_devinfo(request):
-    dev = WGPaketShort('192.168.0.99', 123300755, 0x20)
-    dev.send_data()
-    ret = dev.rec_data
-
-    return render(request, 't1.html', {'x': ret})
