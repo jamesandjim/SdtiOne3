@@ -141,15 +141,66 @@ def byteinfotostr(rec_data):
     cn_rec_data['cn_card_desc'] = cn_card_desc
 
     # 门状态
-    temp_card_doorstatus = rec_data[28:32]
-    dev_sn = int.from_bytes(rec_data[4:8], byteorder='little')
-    if dev_sn[0] == 1:
-        for i in range(1):
-            temp_card_doorstatus == temp_card_doorstatus[i]
-            
+    dev_sn = str(int.from_bytes(rec_data[4:8], byteorder='little'))
 
+    cn_doorstatus1 = ''
+    cn_doorstatus2 = ''
+    cn_doorstatus3 = ''
+    cn_doorstatus4 = ''
+
+    if dev_sn[0] == '1':
+        temp_doorstatus1 =rec_data[28]
+        if temp_doorstatus1 == 1:
+            cn_doorstatus1 = '一号门已打开'
+        else:
+            cn_doorstatus1 = '一号门已关闭'
+
+    elif dev_sn[1] == '2':
+        temp_doorstatus1 = rec_data[28]
+        temp_doorstatus2 = rec_data[29]
+        if temp_doorstatus1 == 1:
+            cn_doorstatus1 = '一号门已打开'
+        else:
+            cn_doorstatus1 = '一号门已关闭'
+
+        if temp_doorstatus2 == 1:
+            cn_doorstatus2 = '二号门已打开'
+        else:
+            cn_doorstatus2 = '二号门已关闭'
+
+    elif dev_sn[4] == '4':
+        temp_doorstatus1 = rec_data[28]
+        temp_doorstatus2 = rec_data[29]
+        temp_doorstatus3 = rec_data[30]
+        temp_doorstatus4 = rec_data[31]
+        if temp_doorstatus1 == 1:
+            cn_doorstatus1 = '一号门已打开'
+        else:
+            cn_doorstatus1 = '一号门已关闭'
+
+        if temp_doorstatus2 == 1:
+            cn_doorstatus2 = '二号门已打开'
+        else:
+            cn_doorstatus2 = '二号门已关闭'
+
+        if temp_doorstatus3 == 1:
+            cn_doorstatus3 = '一号门已打开'
+        else:
+            cn_doorstatus3 = '一号门已关闭'
+
+        if temp_doorstatus4 == 1:
+            cn_doorstatus4 = '二号门已打开'
+        else:
+            cn_doorstatus4 = '二号门已关闭'
+
+    cn_rec_data['cn_doorstatus1'] = cn_doorstatus1
+    cn_rec_data['cn_doorstatus2'] = cn_doorstatus2
+    cn_rec_data['cn_doorstatus3'] = cn_doorstatus3
+    cn_rec_data['cn_doorstatus4'] = cn_doorstatus4
 
     return cn_rec_data
+
+    # 按钮状态
 
 
 
