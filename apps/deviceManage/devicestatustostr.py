@@ -73,7 +73,80 @@ def byteinfotostr(rec_data):
 
     # 刷卡记录说明
     temp_card_desc = rec_data[27]
-    print(temp_card_desc)
+    if temp_card_desc == 1:
+        cn_card_desc = '刷卡开门'
+    elif temp_card_desc == 5:
+        cn_card_desc = '刷卡禁止通过: 电脑控制'
+    elif temp_card_desc == 6:
+        cn_card_desc = '刷卡禁止通过: 没有权限'
+    elif temp_card_desc == 7:
+        cn_card_desc = '刷卡禁止通过: 密码不对'
+    elif temp_card_desc == 8:
+        cn_card_desc = '刷卡禁止通过: 反潜回'
+    elif temp_card_desc == 9:
+        cn_card_desc = '刷卡禁止通过: 多卡'
+    elif temp_card_desc == 10:
+        cn_card_desc = '刷卡禁止通过: 首卡'
+    elif temp_card_desc == 11:
+        cn_card_desc = '刷卡禁止通过: 门为常闭'
+    elif temp_card_desc == 12:
+        cn_card_desc = '刷卡禁止通过: 互锁'
+    elif temp_card_desc == 13:
+        cn_card_desc = '刷卡禁止通过: 受刷卡次数限制'
+    elif temp_card_desc == 15:
+        cn_card_desc = '刷卡禁止通过: 卡过期或不在有效时段'
+    elif temp_card_desc == 18:
+        cn_card_desc = '刷卡禁止通过: 原因不明'
+    elif temp_card_desc == 20:
+        cn_card_desc = '按钮开门'
+    elif temp_card_desc == 23:
+        cn_card_desc = '门打开[门磁信号]'
+    elif temp_card_desc == 24:
+        cn_card_desc = '门关闭[门磁信号]'
+    elif temp_card_desc == 25:
+        cn_card_desc = '超级密码开门'
+    elif temp_card_desc == 28:
+        cn_card_desc = '控制器上电'
+    elif temp_card_desc == 29:
+        cn_card_desc = '控制器复位'
+    elif temp_card_desc == 31:
+        cn_card_desc = '按钮不开门: 强制关门'
+    elif temp_card_desc == 32:
+        cn_card_desc = '按钮不开门: 门不在线'
+    elif temp_card_desc == 33:
+        cn_card_desc = '按钮不开门: 互锁'
+    elif temp_card_desc == 34:
+        cn_card_desc = '胁迫报警'
+    elif temp_card_desc == 37:
+        cn_card_desc = '门长时间未关报警[合法开门后]'
+    elif temp_card_desc == 38:
+        cn_card_desc = '强行闯入报警'
+    elif temp_card_desc == 39:
+        cn_card_desc = '火警'
+    elif temp_card_desc == 40:
+        cn_card_desc = '强制关门'
+    elif temp_card_desc == 41:
+        cn_card_desc = '防盗报警'
+    elif temp_card_desc == 42:
+        cn_card_desc = '烟雾煤气温度报警'
+    elif temp_card_desc == 43:
+        cn_card_desc = '紧急呼救报警'
+    elif temp_card_desc == 44:
+        cn_card_desc = '操作员远程开门'
+    elif temp_card_desc == 45:
+        cn_card_desc = '发卡器确定发出的远程开门'
+    else:
+        cn_card_desc = '未知'
+
+    cn_rec_data['cn_card_desc'] = cn_card_desc
+
+    # 门状态
+    temp_card_doorstatus = rec_data[28:32]
+    dev_sn = int.from_bytes(rec_data[4:8], byteorder='little')
+    if dev_sn[0] == 1:
+        for i in range(1):
+            temp_card_doorstatus == temp_card_doorstatus[i]
+            
 
 
     return cn_rec_data

@@ -81,6 +81,6 @@ def show_dev_info(ip, sn):
     if ret is True and dev.udp_data[4:8] == dev.rec_data[4:8]:
         rt_data = dev.rec_data
 
-        dd = byteinfotostr(rt_data)
-        print(dd)
-        return dd
+        cn_data = byteinfotostr(rt_data)
+
+        return cn_data
