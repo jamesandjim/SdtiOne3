@@ -58,6 +58,23 @@ def byteinfotostr(rec_data):
 
     cn_rec_data['cn_card_no'] = cn_card_no
 
+    # 刷卡时间
+    temp1_card_time = []
+    temp_card_time = [hex(i) for i in rec_data[20:27]]
+    for x in temp_card_time:
+        if len(x) == 4:
+            temp1_card_time.append(x.replace('0x', ''))
+        else:
+            temp1_card_time.append(x.replace('0x', '0'))
+
+    cn_card_time = ''.join(temp1_card_time)
+
+    cn_rec_data['cn_card_time'] = cn_card_time
+
+    # 刷卡记录说明
+    temp_card_desc = rec_data[27]
+    print(temp_card_desc)
+
 
     return cn_rec_data
 
