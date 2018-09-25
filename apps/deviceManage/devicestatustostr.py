@@ -14,7 +14,7 @@ def byteinfotostr(rec_data):
     elif no_type == 1:
         cn_no_type = '刷卡记录'
     elif no_type == 2:
-        cn_no_type = '门磁,按钮, 设备启动, 远程开门记录'
+        cn_no_type = '门磁,按钮,设备启动,远程开门记录'
     elif no_type == 3:
         cn_no_type = '报警记录'
     else:
@@ -198,9 +198,60 @@ def byteinfotostr(rec_data):
     cn_rec_data['cn_doorstatus3'] = cn_doorstatus3
     cn_rec_data['cn_doorstatus4'] = cn_doorstatus4
 
+    # 按钮状态
+    cn_button_status1 = ''
+    cn_button_status2 = ''
+    cn_button_status3 = ''
+    cn_button_status4 = ''
+
+    temp_button_status = rec_data[32:36]
+    list_button_status = [st for st in temp_button_status]
+    if dev_sn[0] == '1':
+        if list_button_status[0] == 1:
+            cn_button_status1 = '按钮已按下'
+        else:
+            cn_button_status1 = '按钮已松开'
+
+    elif dev_sn[0] == '2':
+        if list_button_status[0] == 1:
+            cn_button_status1 = '按钮已按下'
+        else:
+            cn_button_status1 = '按钮已松开'
+
+        if list_button_status[1] == 1:
+            cn_button_status2 = '按钮已按下'
+        else:
+            cn_button_status2 = '按钮已松开'
+
+    elif dev_sn[0] == '4':
+        if list_button_status[0] == 1:
+            cn_button_status1 = '按钮已按下'
+        else:
+            cn_button_status1 = '按钮已松开'
+
+        if list_button_status[1] == 1:
+            cn_button_status2 = '按钮已按下'
+        else:
+            cn_button_status2 = '按钮已松开'
+
+        if list_button_status[2] == 1:
+            cn_button_status3 = '按钮已按下'
+        else:
+            cn_button_status3 = '按钮已松开'
+
+        if list_button_status[3] == 1:
+            cn_button_status4 = '按钮已按下'
+        else:
+            cn_button_status4 = '按钮已松开'
+
+    cn_rec_data['cn_button_status1'] = cn_button_status1
+    cn_rec_data['cn_button_status2'] = cn_button_status2
+    cn_rec_data['cn_button_status3'] = cn_button_status3
+    cn_rec_data['cn_button_status4'] = cn_button_status4
+
     return cn_rec_data
 
-    # 按钮状态
+
 
 
 
