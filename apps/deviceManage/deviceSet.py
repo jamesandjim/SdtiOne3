@@ -84,3 +84,99 @@ def show_dev_info(ip, sn):
         cn_data = byteinfotostr(rt_data)
 
         return cn_data
+
+
+# 远程开门
+def open_door(ip, sn, doorno):
+    dev = WGPaketShort(ip, sn, 0x40)
+    dev.udp_data[8] = int(doorno)
+    ret = dev.send_data()
+
+    print(dev.rec_data[1])
+
+    if ret is True and dev.udp_data[4:9] == dev.rec_data[4:9]:
+        cn_opendoor_ok = '开门成功'
+
+        return {'cn_opendoor_ok':cn_opendoor_ok}
+
+# 读取控制器时间
+def get_device_time(ip, sn):
+    pass
+
+
+# 设置控制器时间
+def set_device_time(ip, sn):
+    pass
+
+
+# 获取指定索引号的记录[功能号: 0xB0]
+def get_record(ip, sn, recordno):
+    pass
+
+
+# 设置已读取过的记录索引号[功能号: 0xB2]
+def set_no_readed(ip, sn, recordno):
+    pass
+
+
+# 获取已读取过的记录索引号[功能号: 0xB4]
+def get_no_readed(ip, sn):
+    pass
+
+
+# 权限添加或修改[功能号: 0x50]
+def add_auth(ip, sn):
+    pass
+
+
+# 权限删除(单个删除)[功能号: 0x52]
+def del_auth(ip, sn):
+    pass
+
+
+# 权限清空(全部清掉)[功能号: 0x54]
+def del_all_auth(ip, sn):
+    pass
+
+
+# 权限总数读取[功能号: 0x58]
+def get_total_auth(ip, sn):
+    pass
+
+
+# 权限查询[功能号: 0x5A]
+def get_auth(ip, sn):
+    pass
+
+
+# 获取指定索引号的权限[功能号: 0x5C]
+def get_auth_no(ip, sn):
+    pass
+
+
+# 设置门控制参数(在线/延时) [功能号: 0x80]
+def set_door_option(ip, sn):
+    pass
+
+
+# 读取门控制参数(在线/延时) [功能号: 0x82]
+def get_door_option(ip, sn):
+    pass
+
+
+# 设置接收服务器的IP和端口 [功能号: 0x90]
+def set_server_option(ip, sn):
+    pass
+
+
+# 读取接收服务器的IP和端口 [功能号: 0x92]
+def get_server_option(ip, sn):
+    pass
+
+
+# 权限按从小到大顺序添加[功能号: 0x56] 适用于权限数过1000
+def add_all_auth(ip, sn):
+    pass
+
+
+

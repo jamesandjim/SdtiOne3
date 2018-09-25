@@ -10,7 +10,14 @@
           <input type="submit" name="search_dev" value="搜索控制器"/>
           <input type="submit" name="update_dev" value="修改控制器IP"/>
           <input type="submit" name="show_devinfo" value="查询控制器状态"/>
-          <input type="submit" name="open_door" value="远程开门"/><br>
+          <select name="doorno">
+              <option value="1">one</option>
+              <option value="2">two</option>
+              <option value="3">three</option>
+              <option value="4">four</option>
+          </select>
+          <input type="submit" name="open_door" value="远程开门"/>
+          <input type="text" name="cn_opendoor_ok" value={{ cn_opendoor_ok }}><br>
 
               设备SN:   <input type="text" name="dev_sn" readonly="readonly" value={{ rt_dev_sn }}><br>
               控制器IP: <input type="text" name="dev_ip" value={{ rt_dev_ip }}><br>
