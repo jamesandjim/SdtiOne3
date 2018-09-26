@@ -17,11 +17,12 @@ from django.conf.urls import url
 from django.views.generic import TemplateView
 from django.contrib import admin
 
-from deviceManage.views import DeviceSet
+from deviceManage import views as dev_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^test/', TemplateView.as_view(template_name='t1.html')),
-    url(r'^deviceSet/', DeviceSet.as_view()),
+    url(r'^$', dev_views.home),
+    url(r'^deviceSet/', dev_views.DeviceSet.as_view()),
+    url(r'^test/', dev_views.dev_test)
 
     ]
