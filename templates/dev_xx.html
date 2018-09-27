@@ -4,7 +4,7 @@
     {% include 'header.html' %}
 </head>
 <body>
-   <form action='/deviceSet/' method="post">
+   <form action='/dev/deviceset/' method="post">
           {% csrf_token %}
           <input type="submit" name="search_dev" value="搜索控制器"/>
           <input type="submit" name="update_dev" value="修改控制器IP"/>

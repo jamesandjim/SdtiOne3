@@ -22,9 +22,6 @@ from deviceManage import views as dev_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', dev_views.home),
-    url(r'^deviceSet/', dev_views.DeviceSet.as_view()),
-    url(r'^hello/', dev_views.hello),
-    url(r'^test/', dev_views.dev_test),
-    url(r'^xx/', dev_views.dev_xx)
+    url(r'^dev/', include('deviceManage.urls')),
 
     ]
