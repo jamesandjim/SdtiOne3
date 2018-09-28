@@ -8,13 +8,13 @@
 from django.conf.urls import url, include
 
 from .views import DeviceSet
-from .views import hello, home,dev_test,dev_xx
+from .views import hello, home, dev_add, dev_list
 
 
 urlpatterns = [
     url(r'^deviceset/', DeviceSet.as_view()),
 
     url(r'^hello/', hello),
-    url(r'^test/', dev_test),
-    url(r'^xx/', dev_xx)
+    url(r'^list/', dev_list),
+    url(r'^add/', dev_add)
 ]

@@ -8,17 +8,17 @@ from deviceManage.deviceSet import search_dev, set_ip, show_dev_info, open_door,
 
 # Create your views here.
 def home(request):
-    return render(request, 'hello_m.html')
+    return render(request, 'main.html')
 
 def hello(request):
-    return render(request, 'hello.html')
+    return render(request, 'welcome.html')
 
 
-def dev_test(request):
-    return render(request, 'dev_manage.html')
+def dev_list(request):
+    return render(request, 'dev_list.html')
 
-def dev_xx(request):
-    return render(request, 'dev_xx.html')
+def dev_add(request):
+    return render(request, 'dev_add.html')
 
 
 class DeviceSet(View):
@@ -31,7 +31,7 @@ class DeviceSet(View):
             # 搜索控制器
             devs = search_dev()
 
-            return render(request, 'dev_xx.html', devs)
+            return render(request, 'dev_add.html', devs)
         elif request.POST.get('update_dev'):
             dev_ip = request.POST.get("dev_ip")
             dev_sn = int(request.POST.get("dev_sn"))
@@ -40,13 +40,13 @@ class DeviceSet(View):
 
             set_ip(dev_ip, dev_sn, dev_netmask, dev_netgate)
 
-            return render(request, 'dev_xx.html', {})
+            return render(request, 'dev_add.html', {})
         elif request.POST.get('show_devinfo'):
             dev_ip = request.POST.get("dev_ip")
             dev_sn = int(request.POST.get("dev_sn"))
 
             data = show_dev_info(dev_ip, dev_sn)
-            return render(request, 'dev_xx.html', data)
+            return render(request, 'dev_add.html', data)
 
         elif request.POST.get('open_door'):
             dev_ip = request.POST.get("dev_ip")
@@ -54,7 +54,7 @@ class DeviceSet(View):
             door_no = int(request.POST.get('doorno'))
 
             data = open_door(dev_ip, dev_sn, door_no)
-            return render(request, 'dev_xx.html', data)
+            return render(request, 'dev_add.html', data)
 
 
 
