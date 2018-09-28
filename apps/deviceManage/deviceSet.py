@@ -44,11 +44,18 @@ def search_dev():
             list_date = [str(dev_date[i]) for i in range(4)]
             rt_dev_date = '-'.join(list_date)
 
-        mx = dict(rt_dev_sn=rt_dev_sn, rt_dev_ip=rt_dev_ip, rt_dev_netmask=rt_dev_netmask, rt_dev_netgate=rt_dev_netgate, rt_dev_mac=rt_dev_mac, rt_dev_ver=rt_dev_ver, rt_dev_date=rt_dev_date)
-        
-        devs['name'] = 'door'+i
+        detail = dict(rt_dev_sn=rt_dev_sn, rt_dev_ip=rt_dev_ip, rt_dev_netmask=rt_dev_netmask, rt_dev_netgate=rt_dev_netgate, rt_dev_mac=rt_dev_mac, rt_dev_ver=rt_dev_ver, rt_dev_date=rt_dev_date)
+        x = 1
+        if i == 0:
+            devs["'door'+str(x)"] = detail
 
-        return devs
+            x += 1
+        elif i > 0:
+            if detail['rt_dev_sn'] not in devs.values():
+                devs["'door'+str(x)"] = detail
+                x += 1
+
+    return devs
 
 
 # 设置设备IP地址
