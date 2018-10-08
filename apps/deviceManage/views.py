@@ -1,6 +1,7 @@
 # from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
+from deviceManage.models import Device
 
 from deviceManage.mjCommunity import WGPaketShort
 from deviceManage.deviceSet import search_dev, set_ip, show_dev_info, open_door, get_auth, get_auth_no, get_device_time, get_door_option, get_no_readed, get_record, get_server_option, get_total_auth, set_device_time, set_door_option, set_no_readed, set_server_option
@@ -15,7 +16,8 @@ def hello(request):
 
 
 def dev_list(request):
-    return render(request, 'dev_list.html')
+    dev = Device.objects.all()
+    return render(request, 'dev_list.html', {dev})
 
 def dev_add(request):
     return render(request, 'dev_add.html')
