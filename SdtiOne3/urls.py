@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from django.contrib import admin
+import xadmin
+
 
 from deviceManage import views as dev_views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^xadmin/', xadmin.site.urls),
     url(r'^$', dev_views.home),
     url(r'^dev/', include('deviceManage.urls')),
 
