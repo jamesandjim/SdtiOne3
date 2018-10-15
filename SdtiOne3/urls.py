@@ -22,8 +22,13 @@ import xadmin
 from deviceManage import views as dev_views
 
 urlpatterns = [
+    #后台管理
     url(r'^xadmin/', xadmin.site.urls),
-    url(r'^$', dev_views.home),
+    #进入前端系统首页
+    url(r'^$', dev_views.hello),
+    #首页的iframed页
+    url(r'^w1/', dev_views.w1),
+    #设备管理的导航
     url(r'^dev/', include('deviceManage.urls')),
 
     ]

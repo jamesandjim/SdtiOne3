@@ -8,16 +8,18 @@ from deviceManage.deviceSet import search_dev, set_ip, show_dev_info, open_door,
 
 
 # Create your views here.
-def home(request):
-    return render(request, 'main.html')
-
 def hello(request):
-    return render(request, 'welcome.html')
+    return render(request, 'hello.html')
 
+def w1(request):
+    return render(request, 'w1.html')
+
+def dev_main(request):
+    return render(request, 'dev_main.html')
 
 def dev_list(request):
     dev = Device.objects.all()
-    return render(request, 'dev_list.html', {dev})
+    return render(request, 'dev_list.html', {'dev': dev})
 
 def dev_add(request):
     return render(request, 'dev_add.html')
@@ -25,7 +27,7 @@ def dev_add(request):
 
 class DeviceSet(View):
     def get(self, request):
-        return render(request, 't1.html', {})
+        return render(request, 'dev_list.html', {})
 
     def post(self, request):
 
