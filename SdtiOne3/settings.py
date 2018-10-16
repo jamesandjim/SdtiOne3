@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'reversion',
-    'deviceManage',
+    'deviceManage'
 ]
 
 MIDDLEWARE = [

@@ -24,6 +24,9 @@ def dev_list(request):
 def dev_add(request):
     return render(request, 'dev_add.html')
 
+def dev_search(request):
+    return render(request, 'dev_search.html')
+
 
 class DeviceSet(View):
     def get(self, request):
