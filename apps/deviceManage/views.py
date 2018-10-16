@@ -18,8 +18,8 @@ def dev_main(request):
     return render(request, 'dev_main.html')
 
 def dev_list(request):
-    dev = Device.objects.all()
-    return render(request, 'dev_list.html', {'dev': dev})
+    devs = Device.objects.all()
+    return render(request, 'dev_list.html', {'devs': devs})
 
 def dev_add(request):
     return render(request, 'dev_add.html')
