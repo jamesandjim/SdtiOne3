@@ -22,10 +22,12 @@ def dev_list(request):
     return render(request, 'dev_list.html', {'devs': devs})
 
 def dev_add(request):
+
     return render(request, 'dev_add.html')
 
 def dev_search(request):
-    return render(request, 'dev_search.html')
+    devs = search_dev()
+    return render(request, 'dev_search.html', {'devs': devs})
 
 
 class DeviceSet(View):

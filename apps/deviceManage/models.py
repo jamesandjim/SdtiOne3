@@ -9,6 +9,7 @@ class Device(models.Model):
     netgate = models.CharField(max_length=50, verbose_name='网关')
     mac = models.CharField(max_length=50, verbose_name='MAC')
     ver = models.CharField(max_length=50, verbose_name='硬件版本', default='')
+    #ver_date = models.DateTimeField(verbose_name='硬件版本时间', default='')
 
     class Meta:
         verbose_name = '设备'
