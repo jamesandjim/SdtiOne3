@@ -35,27 +35,20 @@ class DeviceSet(View):
         return render(request, 'dev_list.html', {})
 
     def post(self, request):
+        onedev = Device()
 
-        if request.POST.get('search_dev'):
+        if request.POST.get('search'):
             # 搜索控制器
             devs = search_dev()
 
-            return render(request, 'dev_add.html', devs)
-        elif request.POST.get('update_dev'):
-            dev_ip = request.POST.get("dev_ip")
-            dev_sn = int(request.POST.get("dev_sn"))
-            dev_netmask = request.POST.get('dev_netmask')
-            dev_netgate = request.POST.get('dev_netgate')
+            return render(request, 'dev_search.html', {'devs': devs})
 
-            set_ip(dev_ip, dev_sn, dev_netmask, dev_netgate)
+        elif 'add' in request.POST:
+            onedev = request.POST.get("dev.name")
+            onedev.save()
+            all = Device.objects.all()
 
-            return render(request, 'dev_add.html', {})
-        elif request.POST.get('show_devinfo'):
-            dev_ip = request.POST.get("dev_ip")
-            dev_sn = int(request.POST.get("dev_sn"))
-
-            data = show_dev_info(dev_ip, dev_sn)
-            return render(request, 'dev_add.html', data)
+            return render(request, 'dev_list.html', {'devs': all})
 
         elif request.POST.get('open_door'):
             dev_ip = request.POST.get("dev_ip")
@@ -64,6 +57,8 @@ class DeviceSet(View):
 
             data = open_door(dev_ip, dev_sn, door_no)
             return render(request, 'dev_add.html', data)
+        else:
+            return render(request, 'dev_list.html')
 
 
 
