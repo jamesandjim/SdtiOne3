@@ -28,7 +28,7 @@
       </div>
       <xblock>
 
-        <button class="layui-btn" onclick="x_admin_show('查找设备','/dev/search/',600,400)"><i class="layui-icon"></i>查找设备</button>
+        <button class="layui-btn" onclick="x_admin_show('查找设备','/dev/search/',1024,600)"><i class="layui-icon"></i>查找设备</button>
         <button class="layui-btn" onclick="x_admin_show('添加设备','member-add.html',600,400)"><i class="layui-icon"></i>添加设备</button>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
@@ -46,7 +46,7 @@
             <th>子网掩码</th>
             <th>网关</th>
             <th>MAC地址</th>
-            <th>状态</th>
+
             <th>操作</th></tr>
         </thead>
         <tbody>
@@ -62,8 +62,7 @@
             <td>{{ dev.netmask }}</td>
             <td>{{ dev.netgate }}</td>
             <td>{{ dev.mac }}</td>
-            <td class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+
             <td class="td-manage">
               <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                 <i class="layui-icon">&#xe601;</i>

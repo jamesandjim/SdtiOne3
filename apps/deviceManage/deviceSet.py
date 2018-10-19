@@ -5,11 +5,10 @@ from .models import Device
 
 # 搜索控制器
 def search_dev():
-    devs = {}
     list_devs = []
-    dev = WGPaketShort('255.255.255.255', 0, 0x94)
-    onedev = Device()
-    for i in range(30):
+    for i in range(60):
+        dev = WGPaketShort('255.255.255.255', 0, 0x94)
+        onedev = Device()
         ret = dev.send_data()
         if ret is True:
             # 从返回值取得设备的SN,并以低位在前的方式，将字节码转为int
@@ -53,21 +52,11 @@ def search_dev():
             rt_dev_date = '-'.join(list_date)
             #onedev.ver_date = rt_dev_date
 
-
-
-        #detail = dict(rt_dev_sn=rt_dev_sn, rt_dev_ip=rt_dev_ip, rt_dev_netmask=rt_dev_netmask, rt_dev_netgate=rt_dev_netgate, rt_dev_mac=rt_dev_mac, rt_dev_ver=rt_dev_ver, rt_dev_date=rt_dev_date)
-        x = 1
-
-        if i == 0:
-            devs["'door'+str(x)"] = onedev
             list_devs.append(onedev)
-            x += 1
-        elif i > 0:
-            if onedev not in list_devs:
-                devs["'door'+str(x)"] = onedev
-                x += 1
-                list_devs.append(onedev)
-    return list_devs
+            list_devs1 = set(list_devs)
+            list_devs2 = list(list_devs1)
+
+    return list_devs2
 
 
 # 设置设备IP地址

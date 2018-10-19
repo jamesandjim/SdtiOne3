@@ -3,7 +3,7 @@ from django.db import models
 
 class Device(models.Model):
     name = models.CharField(max_length=50, verbose_name='设备名称')
-    sn = models.CharField(max_length=50, verbose_name='设备序列号')
+    sn = models.CharField(max_length=50, verbose_name='设备序列号', primary_key=True)
     ip = models.CharField(max_length=50, verbose_name='设备IP')
     netmask = models.CharField(max_length=50, verbose_name='子网掩码')
     netgate = models.CharField(max_length=50, verbose_name='网关')

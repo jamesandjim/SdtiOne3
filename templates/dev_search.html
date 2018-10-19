@@ -10,11 +10,12 @@
 
 <form action="/dev/deviceset/" method="post">
     {% csrf_token %}
+
     <xblock>
 
         <button class="layui-btn" type="submit" name="search"><i class="layui-icon"></i>查找设备</button>
         <button class="layui-btn" type="submit" name="add"><i class="layui-icon"></i>添加找到的设备</button>
-        <input type="hidden" name="dev" value="{{ devs }}">
+
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
     </xblock>
     <table class="layui-table">
@@ -24,14 +25,12 @@
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i
                         class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>ID</th>
-            <th>设备名</th>
             <th>设备SN</th>
             <th>设备IP</th>
             <th>子网掩码</th>
             <th>网关</th>
             <th>MAC地址</th>
-            <th>状态</th>
+
             <th>操作</th>
         </tr>
         </thead>
@@ -42,28 +41,21 @@
                     <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
                             class="layui-icon">&#xe605;</i></div>
                 </td>
-                <td>{{ dev.id }}</td>
-                <td>{{ dev.name }}</td>
-                <td>{{ dev.sn }}</td>
-                <td>{{ dev.ip }}</td>
-                <td>{{ dev.netmask }}</td>
-                <td>{{ dev.netgate }}</td>
-                <td>{{ dev.mac }}</td>
-                <td class="td-status">
-                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+                <td>{{ dev.sn }}<input type="hidden" name="dev_sn" value="{{ dev.sn }}"></td>
+                <td>{{ dev.ip }}<input type="hidden" name="dev_ip" value="{{ dev.ip }}"></td>
+                <td>{{ dev.netmask }}<input type="hidden" name="dev_netmask" value="{{ dev.netmask }}"></td>
+                <td>{{ dev.netgate }}<input type="hidden" name="dev_netgate" value="{{ dev.netgate }}"></td>
+                <td>{{ dev.mac }}<input type="hidden" name="dev_mac" value="{{ dev.mac }}"></td>
+
                 <td class="td-manage">
-                    <a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">
-                        <i class="layui-icon">&#xe601;</i>
-                    </a>
-                    <a title="编辑" onclick="x_admin_show('编辑','member-edit.html',600,400)" href="javascript:;">
+
+                    <a title="编辑" onclick="x_admin_show('编辑','/dev/add/',600,400)" href="javascript:;">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
+                    <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="添加到系统" href="javascript:;">
                         <i class="layui-icon">&#xe631;</i>
                     </a>
-                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                        <i class="layui-icon">&#xe640;</i>
-                    </a>
+
                 </td>
             </tr>
         {% endfor %}

@@ -44,7 +44,14 @@ class DeviceSet(View):
             return render(request, 'dev_search.html', {'devs': devs})
 
         elif 'add' in request.POST:
-            onedev = request.POST.get("dev.name")
+            onedev.sn = request.POST.get("dev_sn")
+            onedev.name = request.POST.get("dev_name", onedev.sn)
+
+            onedev.ip = request.POST.get("dev_ip")
+            onedev.netmask = request.POST.get("dev_netmask")
+            onedev.netgate = request.POST.get("dev_netgate")
+            onedev.mac = request.POST.get("dev_mac")
+            onedev.ver = request.POST.get("dev_ver", '')
             onedev.save()
             all = Device.objects.all()
 
