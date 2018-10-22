@@ -55,7 +55,7 @@ class DeviceSet(View):
             onedev.save()
             all = Device.objects.all()
 
-            return render(request, 'dev_list.html', {'devs': all})
+            return redirect(request, 'dev_list.html')
 
         elif request.POST.get('open_door'):
             dev_ip = request.POST.get("dev_ip")
