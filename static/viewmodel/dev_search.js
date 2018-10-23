@@ -31,6 +31,19 @@ $(function () {
 
 
        //做ajax请求
+        $.ajax({
+
+            type: 'POST',
+            url:'/dev/deviceset/',
+            dataType:'json',
+            data:{html},
+            success:function (data_get) {
+                window.location.href = '/dev/list/'
+                alert('ok')
+            },
+
+            }
+        )
 
 	});
 
