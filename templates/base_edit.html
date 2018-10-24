@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'header.html' %}
+    {% block viewmodel %}
+    {% endblock %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body class="layui-anim layui-anim-up">
+
+<form>
+    {% csrf_token %}
+    {% block content %}
+        <xblock>
+
+            <button class="layui-btn" type="submit" name="search"><i class="layui-icon"></i>保存设备参数</button>
+
+        </xblock>
+
+
+        <div class="layui-form-item">
+            <label for="L_email" class="layui-form-label">
+                <span class="x-red">*</span>邮箱
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_email" name="email" required="" lay-verify="email"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>将会成为您唯一的登入名
+            </div>
+        </div>
+    {% endblock %}
+</form>
+</body>
+
+</html>

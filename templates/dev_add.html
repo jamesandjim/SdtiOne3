@@ -1,52 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% include 'header.html' %}
-</head>
-<body>
-   <form action='/dev/deviceset/' method="post">
-          {% csrf_token %}
-          <input type="submit" name="search_dev" value="搜索控制器"/>
-          <input type="submit" name="update_dev" value="修改控制器IP"/>
-          <input type="submit" name="show_devinfo" value="查询控制器状态"/>
-          <select name="doorno">
-              <option value="1">one</option>
-              <option value="2">two</option>
-              <option value="3">three</option>
-              <option value="4">four</option>
-          </select>
-          <input type="submit" name="open_door" value="远程开门"/>
-          <input type="text" name="cn_opendoor_ok" value={{ cn_opendoor_ok }}><br>
+{% extends 'base_edit.html' %}
+{% block viewmodel %}
 
-              设备SN:   <input type="text" name="dev_sn" readonly="readonly" value={{ rt_dev_sn }}><br>
-              控制器IP: <input type="text" name="dev_ip" value={{ rt_dev_ip }}><br>
-              控制器子网掩码:<input type="text" name="dev_netmask" value={{ rt_dev_netmask }}><br>
-              控制器网关:<input type="text" name="dev_netgate" value={{ rt_dev_netgate }}><br>
-              控制器mac:<input type="text" name="dev_mac" value={{ rt_dev_mac }}><br>
-              设备硬件版本：<input type="text" name="dev_ver" value={{ rt_dev_ver }}><br>
-              <HR align=left width=90% color=#987cb9 SIZE=1>
+{% endblock %}
+
+{% block content %}
+    <xblock>
+
+        <button class="layui-btn" type="submit" name="search"><i class="layui-icon"></i>保存设备参数</button>
+
+    </xblock>
 
 
-              记录号:<input type="text" name="cn_last_no" readonly="readonly" value={{ cn_last_no }}><br>
-              记录类型: <input type="text" name="cn_no_type" value={{ cn_no_type }}><br>
-              是否通过:<input type="text" name="cn_yn" value={{ cn_yn }}><br>
-              门名称:<input type="text" name="cn_door_no" value={{ cn_door_no }}><br>
-              进出方向:<input type="text" name="cn_in_out" value={{ cn_in_out }}><br>
-              卡号:<input type="text" name="cn_card_no" value={{ cn_card_no }}><br>
-              刷卡时间:<input type="text" name="cn_card_time" value={{ cn_card_time }}><br>
-              详情:<input type="text" name="cn_card_desc" value={{ cn_card_desc }}><br>
-              门一状态:<input type="text" name="cn_doorstatus1" value={{ cn_doorstatus1 }}><br>
-              门二状态:<input type="text" name="cn_doorstatus2" value={{ cn_doorstatus2 }}><br>
-              门三状态:<input type="text" name="cn_doorstatus3" value={{ cn_doorstatus3 }}><br>
-              门四状态:<input type="text" name="cn_doorstatus4" value={{ cn_doorstatus4 }}><br>
-              按钮一状态:<input type="text" name="cn_button_status1" value={{ cn_button_status1 }}><br>
-              按钮二状态:<input type="text" name="cn_button_status2" value={{ cn_button_status2 }}><br>
-              按钮三状态:<input type="text" name="cn_button_status3" value={{ cn_button_status3 }}><br>
-              按钮四状态:<input type="text" name="cn_button_status4" value={{ cn_button_status4 }}><br>
+    <div class="layui-form-item">
+        <label for="L_email" class="layui-form-label">
+            <span class="x-red">*</span>设备SN
+        </label>
+        <div class="layui-input-inline">
+            <input type="text" id="sn" name="sn" required=""
+                   autocomplete="off" class="layui-input" readonly="True">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>在设备上可以看到的9位数唯一码
+        </div>
+    </div>
 
+    <div class="layui-form-item">
+        <label for="L_email" class="layui-form-label">
+            <span class="x-red">*</span>设备IP
+        </label>
+        <div class="layui-input-inline">
+            <input type="text" id="ip" name="ip" required=""
+                   autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>设备当前的IP，可以修改
+        </div>
+    </div>
 
+    <div class="layui-form-item">
+        <label for="L_email" class="layui-form-label">
+            <span class="x-red">*</span>子网掩码
+        </label>
+        <div class="layui-input-inline">
+            <input type="text" id="netmask" name="netmask" required=""
+                   autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>
+        </div>
+    </div>
 
+    <div class="layui-form-item">
+        <label for="L_email" class="layui-form-label">
+            <span class="x-red">*</span>设备网关
+        </label>
+        <div class="layui-input-inline">
+            <input type="text" id="netgate" name="netgate" required=""
+                   autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>设备当前的IP，可以修改
+        </div>
+    </div>
 
-     </form>
-</body>
-</html>
+    <div class="layui-form-item">
+        <label for="L_email" class="layui-form-label">
+            <span class="x-red">*</span>设备MAC
+        </label>
+        <div class="layui-input-inline">
+            <input type="text" id="mac" name="mac" required=""
+                   autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>
+        </div>
+    </div>
+{% endblock %}

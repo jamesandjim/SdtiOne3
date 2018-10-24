@@ -24,8 +24,8 @@ def dev_list(request):
     return render(request, 'dev_list.html', {'devs': devs})
 
 def dev_add(request):
-
-    return render(request, 'dev_add.html')
+    qu = request.POST
+    return render(request, 'dev_add.html', {'dev': qu})
 
 def dev_search(request):
     devs = search_dev()
@@ -39,10 +39,6 @@ class DeviceSet(View):
     def post(self, request):
         onedev = Device()
         tm = request.POST
-        l = list(tm)
-        for item in tm.keys():
-            print(tm[item])
-
         return HttpResponse("success")
 
         # if request.POST.get('search'):
