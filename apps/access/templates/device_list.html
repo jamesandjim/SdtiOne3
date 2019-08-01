@@ -1,0 +1,253 @@
+{% extends 'common/base_tab.html' %}
+
+{% block title %}门禁设备管理{% endblock %}
+
+{% block content_header %}
+    <div class="layui-card-header">查询与操作</div>
+    <div class="layui-card-body layui-col-md12">
+
+        <button class="layui-btn" onclick="xadmin.open('手动增加控制器','{% url 'access_device_search' %}',1200,800)"><i
+                class="layui-icon">&#xe615;</i>手动增加控制器
+        </button>
+    </div>
+{% endblock %}
+
+
+{% block content_body_list %}
+
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">KW门禁控制器</li>
+            <li>门禁一体机</li>
+            <li>云门禁控制器</li>
+            <li>其他设备</li>
+        </ul>
+
+        <div class="layui-tab-content" style="height: 100px;">
+
+            <div class="layui-tab-item layui-show">
+                <div class="layui-card-body">
+                    <table id="devices_list" lay-filter="devices_list">
+                        <script type="text/html" id="barDemo">
+                            <a class="layui-btn layui-btn-normal" lay-event="edit">更改设备参数</a>
+                            <a class="layui-btn layui-btn-normal layui-btn-danger" lay-event="del">删除</a>
+                        </script>
+                    </table>
+
+
+                </div>
+
+            </div>
+            <div class="layui-tab-item">2</div>
+            <div class="layui-tab-item">3</div>
+            <div class="layui-tab-item">4</div>
+
+
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block out_body %}
+    <div id="devices" lay-filter="devices" hidden="hidden">
+        <div class="layui-card layui-col-md12">
+
+
+            <div class="layui-card-body layui-col-md12" style="height: 750px">
+                <form class="layui-form" action="">
+                    {#一行一列#}
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">设备名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="name" name="name" lay-verify="name" autocomplete="off"
+                                   placeholder="请输入标题"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    {#一行两列#}
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">设备SN</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="sn" name="sn" lay-verify="sn" autocomplete="off"
+                                       placeholder="请输入标题"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">设备IP</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="ip" name="ip" lay-verify="ip" autocomplete="off"
+                                       placeholder="请输入标题"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">设备子网掩码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="netmask" id="netmask" lay-verify="netmask" autocomplete="off"
+                                       placeholder="请输入标题"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">设备网关</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="netgate" name="netgate" lay-verify="netgate" autocomplete="off"
+                                       placeholder="请输入标题"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">设备MAC</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="mac" name="mac" lay-verify="mac" autocomplete="off"
+                                       placeholder="请输入标题"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">硬件版本</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="ver" name="ver" lay-verify="ver" autocomplete="off"
+                                       placeholder="请输入标题"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        var pdata;
+        layui.use(['form', 'layer', 'jquery', 'element', 'table', 'laypage'],
+            function () {
+                $ = layui.jquery;
+                var form = layui.form,
+                    layer = layui.layer,
+                    element = layui.element,
+                    table = layui.table,
+                    laypage = layui.laypage;
+
+
+                var devs = table.render({
+                    elem: '#devices_list',
+                    method: 'post',
+                    page: true,
+                    limit: 30,
+                    url: '{% url 'access_device_list1' %}',
+                    cellMinWidth: 80,
+                    headers: {"X-CSRFToken": '{{ csrf_token  }}'},
+                    cols: [[
+                        {field: 'name', title: '设备名称', sort: true},
+                        {field: 'sn', title: '设备sn', sort: true},
+                        {field: 'ip', title: '设备ip地址', sort: true},
+                        {field: 'netmask', title: '子网掩码'},
+                        {field: 'netgate', title: '网关地址'},
+                        {field: 'mac', title: '设备MAC'},
+                        {field: 'ver', title: '硬件版本'},
+                        {title: '操作', fixed: 'right', width: 220, toolbar: '#barDemo'}
+                    ]]
+
+
+                });
+
+                {#laypage.render({#}
+                {#    elem: 'xpage'#}
+                {#    , count: 100#}
+                {#    , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']#}
+                {#    , jump: function (obj) {#}
+                {#        console.log(obj)#}
+                {#    }#}
+                {#});#}
+
+                table.on('tool(devices_list)', function (obj) {
+                    var data = obj.data;
+
+                    if (obj.event === 'del') {
+                        $.ajax({
+                            headers: {"X-CSRFToken": '{{ csrf_token  }}'},
+                            url: '{% url 'access_device_del_one' %}',
+                            method: 'post',
+                            data: data,
+                            dataType: 'json',
+
+                            success: function (res) {
+                                table.reload('devices_list');
+                            },
+                            error: function (data) {
+                                alert('出错了！');
+
+                            }
+                        });
+
+
+                    } else if (obj.event === 'edit') {
+
+                        layer.open({
+                            type: 1,
+                            title: '设备编辑',
+                            area: ['800px', '400px'],
+                            content: $('#devices'),
+                            btn: ['确定', '取消'],
+                            btnAlign: 'r',
+                            scrollbar: false,
+
+                            yes: function (index, layero) {
+                                $.ajax({
+                                    headers: {"X-CSRFToken": '{{ csrf_token  }}'},
+                                    url: '{% url 'access_device_edit1' %}',
+                                    method: 'post',
+                                    data: {"sn": $("#sn").val(), "name":$("#name").val()},
+                                    dataType: 'json',
+                                    success: function (res) {
+                                        layer.close(index);
+                                        table.reload('devices_list');
+                                    },
+                                    error: function (data) {
+                                        alert('出错了！');
+
+                                    }
+
+                                })
+                            },
+
+                            btn2: function (index, layero) {
+                                layer.close(index);
+                            }
+
+                        });
+
+                        $('#name').val(data.name);
+                        $('#sn').val(data.sn);
+                        $('#ip').val(data.ip);
+                        $('#netmask').val(data.netmask);
+                        $('#netgate').val(data.netgate);
+                        $('#mac').val(data.mac);
+                        $('#ver').val(data.ver);
+
+                    }
+                });
+
+            });
+
+    </script>
+{% endblock %}

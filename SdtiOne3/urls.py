@@ -14,21 +14,35 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.urls import path
 from django.views.generic import TemplateView
 from django.contrib import admin
 import xadmin
 
-
+from management import views as management_views
 from deviceManage import views as dev_views
 
 urlpatterns = [
     #后台管理
-    url(r'^xadmin/', xadmin.site.urls),
-    #进入前端系统首页
-    url(r'^$', dev_views.hello),
-    #首页的iframed页
-    url(r'^w1/', dev_views.w1),
-    #设备管理的导航
-    url(r'^dev/', include('deviceManage.urls')),
+    path('xadmin/', xadmin.site.urls),
 
-    ]
+    #系统登录
+    path('', management_views.login, name='login'),
+
+    #进入前端系统首页
+    path('index/', management_views.Index.as_view(), name='index'),
+
+    #管理中心的导航
+    path('management/', include('management.urls')),
+
+    #门禁系统的导航
+    path('access/', include('access.urls')),
+
+    #访客系统的导航
+    path('vistor/', include('vistor.urls')),
+
+    #消费系统的导航
+    path('xf/', include('xf.urls')),
+
+
+]

@@ -1,0 +1,400 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+</head>
+<body>
+
+<!--工具栏(全局)-->
+<div id="normal-problem-panel-tool" class="layui-btn-group">
+    <button class="layui-btn" data-type="normalProblemAdd">新增问题</button>
+</div>
+
+<!--表格展示-->
+<table id="normal-problem-panel-table" lay-filter="data-table"></table>
+
+<!--工具栏(每行)-->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<!--查看弹出框-->
+<form id="normal-problem-detail" class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">问题类型</label>
+        <div class="layui-input-block">
+            <input type="text" readonly="readonly" id="normal-problem-detail-type" name="normal-problem-detail-type"
+                   lay-verify="normal-problem-detail-type"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">QQ号码</label>
+        <div class="layui-input-block">
+            <input type="text" readonly="readonly" id="normal-problem-detail-qq" name="normal-problem-detail-qq"
+                   lay-verify="normal-problem-detail-qq"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">帐号</label>
+            <div class="layui-input-block">
+                <input type="text" readonly="readonly" id="normal-problem-detail-account"
+                       name="normal-problem-detail-account" lay-verify="normal-problem-detail-type"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">区服</label>
+            <div class="layui-input-block">
+                <input type="text" readonly="readonly" id="normal-problem-detail-server"
+                       name="normal-problem-detail-server" lay-verify="normal-problem-detail-type"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">角色名</label>
+            <div class="layui-input-block">
+                <input type="text" readonly="readonly" id="normal-problem-detail-character"
+                       name="normal-problem-detail-character" lay-verify="normal-problem-detail-type"
+                       class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">问题描述</label>
+        <div class="layui-input-block">
+            <textarea type="text" readonly="readonly" id="normal-problem-detail-des" name="normal-problem-detail-des"
+                      lay-verify="normal-problem-detail-qq"
+                      class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">记录人</label>
+        <div class="layui-input-block">
+            <input type="text" readonly="readonly" id="normal-problem-detail-recordpeople"
+                   name="normal-problem-detail-recordpeople" lay-verify="normal-problem-detail-qq"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">记录时间</label>
+        <div class="layui-input-block">
+            <input type="text" readonly="readonly" id="normal-problem-detail-recorddate"
+                   name="normal-problem-detail-recorddate" lay-verify="normal-problem-detail-qq"
+                   class="layui-input">
+        </div>
+    </div>
+</form>
+
+<!--新增问题弹出框-->
+<form id="normal-problem-add" class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">问题类型</label>
+        <div class="layui-input-block">
+            <select id="normal-problem-add-type" name="normal-problem-add-type"
+                    lay-verify="normal-problem-add-type">
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">QQ号码</label>
+        <div class="layui-input-block">
+            <input type="text" id="normal-problem-add-qq" name="normal-problem-add-qq"
+                   lay-verify="normal-problem-add-qq"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">帐号</label>
+            <div class="layui-input-block">
+                <input type="text" id="normal-problem-add-account"
+                       name="normal-problem-add-account" lay-verify="normal-problem-add-type"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">区服</label>
+            <div class="layui-input-block">
+                <input type="text" id="normal-problem-add-server"
+                       name="normal-problem-add-server" lay-verify="normal-problem-add-type"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">角色名</label>
+            <div class="layui-input-block">
+                <input type="text" id="normal-problem-add-character"
+                       name="normal-problem-add-character" lay-verify="normal-problem-add-type"
+                       class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">问题描述</label>
+        <div class="layui-input-block">
+            <textarea type="text" id="normal-problem-add-des" name="normal-problem-add-des"
+                      lay-verify="normal-problem-add-qq"
+                      class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">记录人</label>
+        <div class="layui-input-block">
+            <input type="text" readonly="readonly" id="normal-problem-add-recordpeople"
+                   name="normal-problem-add-recordpeople" lay-verify="normal-problem-add-qq"
+                   class="layui-input">
+        </div>
+    </div>
+</form>
+
+<!--编辑问题弹出框-->
+<form id="normal-problem-edit" class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">问题编号</label>
+        <div class="layui-input-block">
+            <input type="text" id="normal-problem-edit-id" name="normal-problem-edit-id"
+                   lay-verify="normal-problem-edit-id"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">问题类型</label>
+        <div class="layui-input-block">
+            {% comment %}            <input type="text" id="normal-problem-edit-type" name="normal-problem-edit-type"
+                   lay-verify="normal-problem-edit-type"
+                   class="layui-input">{% endcomment %}
+            <select id="normal-problem-edit-type" name="normal-problem-edit-type"
+                    lay-verify="normal-problem-edit-type">
+
+            </select>
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">QQ号码</label>
+        <div class="layui-input-block">
+            <input type="text" id="normal-problem-edit-qq" name="normal-problem-edit-qq"
+                   lay-verify="normal-problem-edit-qq"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">帐号</label>
+            <div class="layui-input-block">
+                <input type="text" id="normal-problem-edit-account"
+                       name="normal-problem-edit-account" lay-verify="normal-problem-edit-type"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">区服</label>
+            <div class="layui-input-block">
+                <input type="text" id="normal-problem-edit-server"
+                       name="normal-problem-edit-server" lay-verify="normal-problem-edit-type"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">角色名</label>
+            <div class="layui-input-block">
+                <input type="text" id="normal-problem-edit-character"
+                       name="normal-problem-edit-character" lay-verify="normal-problem-edit-type"
+                       class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">问题描述</label>
+        <div class="layui-input-block">
+            <textarea type="text" id="normal-problem-edit-des" name="normal-problem-edit-des"
+                      lay-verify="normal-problem-edit-qq"
+                      class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">记录人</label>
+        <div class="layui-input-block">
+            <input type="text" readonly="readonly" id="normal-problem-edit-recordpeople"
+                   name="normal-problem-edit-recordpeople" lay-verify="normal-problem-edit-qq"
+                   class="layui-input">
+        </div>
+    </div>
+</form>
+
+<script src="{% static 'layui/layui.js' %}"></script>
+<script>
+
+    layui.use(['table', 'jquery', 'layer', 'form'], function () {
+        var table = layui.table,
+            layer = layui.layer,
+            form = layui.form,
+            $ = layui.jquery;
+
+        //渲染表格
+        var normalProblemTable = table.render({//渲染table
+            method: 'post',//数据传输方式为post
+            height: 'full-20',//高度为屏幕高度-20
+            cellMinWidth: 80,//单元格最小宽度为80
+            page: true,//开启分页
+            limit: 30,//分页默认为30
+            elem: '#normal-problem-panel-table',//设置容器
+            url: '{% url 'service:get_normalProblems' %}',//数据获取url
+            cols: [[//设置列标签、标题、宽度、是否排序等
+                {field: 'id', title: 'ID', width: 80, sort: true},
+                {field: 'type', title: '类别', width: 80,},
+                {field: 'des', title: '描述',},
+                {field: 'recordpeople', title: '记录人',},
+                {field: 'recorddate', title: '记录时间',},
+                {fixed: 'right', width: 200, toolbar: '#barDemo'},//设置每行的工具栏以及其容器
+            ]],
+        });
+
+        //监听工具条，每行
+        table.on('tool(data-table)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {//如果event是detail,这里的event名称需要在容器中设置lay-event
+                $.post(//向服务器发送问题id，获取选中问题行的数据
+                    '{% url 'service:get_normalProblem' %}',
+                    {id: data.id},
+                    function (data) {//获取数据后开启弹窗
+                        layer.prompt({
+                            title: '问题详情',
+                            content: $('#normal-problem-detail'),//设置弹窗的容器
+                            btn: ['确定'],//点击确定的时候，会关闭弹窗
+                            yes: function (index, layero) {
+                                layer.close(index)
+                            }
+                        });
+                        //设置容器中各个值
+                        $('#normal-problem-detail-type').val(data.type)
+                        $('#normal-problem-detail-qq').val(data.qq_num)
+                        $('#normal-problem-detail-account').val(data.account)
+                        $('#normal-problem-detail-server').val(data.server)
+                        $('#normal-problem-detail-character').val(data.character)
+                        $('#normal-problem-detail-des').val(data.des)
+                        $('#normal-problem-detail-recordpeople').val(data.recordpeople)
+                        $('#normal-problem-detail-recorddate').val(data.recorddate)
+                    }
+                )
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                $.post(//根据id获取服务器中的数据
+                    '{% url 'service:get_normalProblem' %}',
+                    {id: data.id},
+                    function (data) {
+                        layer.prompt({
+                            title: '问题详情',
+                            content: $('#normal-problem-edit'),
+                            btn: ['确定', '取消'],//一个是确定修改，一个是取消
+                            yes: function (index, layero) {
+                                //确定修改的时候需要吧各个值传到服务器当中
+                                $.post(
+                                    '{% url 'service:edit_normalProblem' %}',
+                                    {
+                                        id: $('#normal-problem-edit-id').val(),
+                                        qq_num: $('#normal-problem-edit-qq').val(),
+                                        type_id: $('#normal-problem-edit-type').val(),
+                                        account: $('#normal-problem-edit-account').val(),
+                                        server: $('#normal-problem-edit-server').val(),
+                                        character: $('#normal-problem-edit-character').val(),
+                                        des: $('#normal-problem-edit-des').val(),
+                                    },
+                                    function (data) {//修改成功后需要关闭弹窗并且重载表格
+                                        layer.close(index);
+                                        layer.msg('修改成功！', {icon: 1});
+                                        normalProblemTable.reload();
+                                    }
+                                )
+                            },
+                            btn2: function (index, layero) {
+                                layer.close(index)
+                            }
+                        });
+                        $.get('{% url 'service:get_problemsType' %}', function (data) {
+                            //$('#normal-problem-edit-type').append("<option value=\"\"></option>");
+                            for (var i = 0; i < data.length; i++) {
+                                console.log(data[i].type)
+                                $('#normal-problem-edit-type').append("<option value='" + data[i].id + "'>" + data[i].type + "</option");
+                            }
+                            form.render('select');
+                        });
+                        $('#normal-problem-edit-id').val(data.id)
+                        $('#normal-problem-edit-qq').val(data.qq_num)
+                        $('#normal-problem-edit-type').val(data.type)
+                        $('#normal-problem-edit-account').val(data.account)
+                        $('#normal-problem-edit-server').val(data.server)
+                        $('#normal-problem-edit-character').val(data.character)
+                        $('#normal-problem-edit-des').val(data.des)
+                        $('#normal-problem-edit-recordpeople').val(data.recordpeople)
+                    }
+                )
+            }
+        });
+
+        //监听工具条，全局
+        var normalProblemPanelTools = {
+            normalProblemAdd: function () {//新增问题
+                layer.prompt({
+                    title: '新增问题',
+                    content: $('#normal-problem-add'),
+                    btn: ['确定', '取消'],//一个是确定修改，一个是取消
+                    yes: function (index, layero) {
+                        //确定修改的时候需要吧各个值传到服务器当中
+                        $.post(
+                            '{% url 'service:add_normalProblem' %}',
+                            {
+                                qq_num: $('#normal-problem-add-qq').val(),
+                                type_id: $('#normal-problem-add-type').val(),
+                                account: $('#normal-problem-add-account').val(),
+                                server: $('#normal-problem-add-server').val(),
+                                character: $('#normal-problem-add-character').val(),
+                                des: $('#normal-problem-add-des').val(),
+                                recordpeople: $('#normal-problem-add-recordpeople').val(),
+                            },
+                            function (data) {//修改成功后需要关闭弹窗并且重载表格
+                                layer.close(index)
+                                layer.msg('新增成功！', {icon: 1})
+                                normalProblemTable.reload()
+                            }
+                        )
+                    },
+                    btn2: function (index, layero) {
+                        layer.close(index)
+                    }
+                });
+                //新增问题的时候，需要加载问题类型
+                $.get('{% url 'service:get_problemsType' %}', function (data) {
+                    $('#normal-problem-edit-type').append("<option value=\"\"></option>");
+                    for (var i = 0; i < data.length; i++) {
+                        $('#normal-problem-add-type').append("<option value='" + data[i].id + "'>" + data[i].type + "</option");
+                    }
+                    form.render('select');
+                });
+                $('#normal-problem-add-recordpeople').val('{{ request.user.rtx_name }}')
+            }
+        }
+
+        //监听全局工具栏按钮点击
+        $('#normal-problem-panel-tool > .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            //如果normalProblemPanelTools[type]存在则call,否则为""
+            normalProblemPanelTools[type] ? normalProblemPanelTools[type].call(this) : "";
+        })
+    })
+</script>
+</body>
+</html>

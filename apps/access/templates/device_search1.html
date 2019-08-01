@@ -1,0 +1,103 @@
+{% extends 'common/base_layer.html' %}
+
+{% block title %}搜索门禁设备{% endblock %}
+
+
+{% block content_header %}
+    <div class="layui-card-header">查询与操作</div>
+    <div class="layui-card-body layui-col-md12">
+        <button class="layui-btn" onclick="xadmin.open('自动搜索控制器','{% url 'access_device_search' %}',1080,800)"><i
+                class="layui-icon">&#xe615;</i>自动搜索控器
+        </button>
+        <button class="layui-btn" onclick="xadmin.open('添加全部控制器到系统','{% url 'access_device_search' %}',900,600)"><i
+                class="layui-icon">&#xe615;</i>添加全部控制器到系统
+        </button>
+    </div>
+{% endblock %}
+
+
+{% block content_body_list %}
+
+
+    <table class="layui-table layui-hide" id="devices" lay-filter="devices">
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="add">增加到系统</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">更改设备参数</a>
+
+        </script>
+
+    </table>
+
+{% endblock %}
+
+
+{% block script %}
+
+    <script>
+        layui.use(['form', 'layer', 'jquery', 'element', 'table'],
+            function () {
+                $ = layui.jquery;
+                var form = layui.form,
+                    layer = layui.layer,
+                    element = layui.element,
+                    table = layui.table;
+
+                var devs = table.render({
+                    elem: '#devices',
+                    method: 'post',
+                    page: true,
+                    url: '{% url 'access_device_search1' %}',
+
+                    headers: {"X-CSRFToken": '{{ csrf_token  }}'},
+                    cols: [[
+                        {field: 'sn', title: '设备sn', sort: true},
+                        {field: 'ip', title: '设备ip地址'},
+                        {field: 'netmask', title: '子网掩码'},
+                        {field: 'netgate', title: '网关地址'},
+                        {field: 'mac', title: '设备MAC'},
+                        {field: 'ver', title: '硬件版本'},
+                        {title: '操作', fixed: 'right', width: 220, toolbar: '#barDemo'}
+                    ]]
+
+
+                });
+
+                table.on('tool(devices)', function (obj) {
+                    var data = obj.data;
+
+                    if (obj.event === 'add') {
+                        $.ajax({
+                            headers: {"X-CSRFToken": '{{ csrf_token  }}'},
+                            url: '{% url 'access_device_add_one' %}',
+                            method: 'post',
+                            data: data, //不可使用JSON.stringify方法
+                            dataType: 'json',
+
+
+                            success: function (res) {
+                                if (res.code = '0') {
+                                    alert(res.msg);
+                                    var index = parent.layer.getFrameIndex(window.name);//得到当前弹窗的index
+                                    parent.layer.close(index);//关闭弹窗
+                                    parent.layui.table.reload('devices_list'); //刷新上级页中的表格
+
+                                } else
+                                    alert(res.msg);
+                            },
+                            error: function (data) {
+                                alert('出错了！');
+
+                            }
+                        });
+
+
+                    } else if (obj.event === 'edit') {
+                        layer.alert(JSON.stringify(data));
+
+                    }
+                });
+
+            });
+
+    </script>
+{% endblock %}

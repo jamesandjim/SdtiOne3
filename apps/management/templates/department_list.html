@@ -1,0 +1,122 @@
+{% extends 'common/base_list.html' %}
+
+{% block title %}部门管理{% endblock %}
+
+
+{% block content_body_querry %}
+
+    <form class="layui-form layui-col-space5">
+        <input type="text" placeholder="请输入关键字进行搜索" autocomplete="off" class="layui-input eleTree-search">
+
+
+    </form>
+{% endblock %}
+
+{% block content_body_operation %}
+    <button class="layui-btn layui-btn-danger" onclick="delAll()">
+        <i class="layui-icon">&#xe615;</i>批量删除
+    </button>
+    <button class="layui-btn" onclick="xadmin.open('添加','{% url 'access_device_search' %}',800,500)">
+        <i class="layui-icon">&#xe615;</i>添加
+    </button>
+    <button class="layui-btn" onclick="xadmin.open('搜索控制器','{% url 'access_device_search' %}',1280,600)">
+        <i class="layui-icon">&#xe615;</i>搜索控制器
+    </button>
+{% endblock %}
+
+{% block content_body_tree %}
+    <div class="eleTree ele6" lay-filter="data6"></div>
+
+{% endblock %}
+
+
+{% block content_body_list %}
+
+    <table class="layui-table layui-form">
+        <thead>
+        <tr>
+            <th>
+                <input type="checkbox" name="" lay-skin="primary">
+            </th>
+            <th>订单编号</th>
+            <th>收货人</th>
+            <th>总金额</th>
+            <th>应付金额</th>
+            <th>订单状态</th>
+            <th>支付状态</th>
+            <th>发货状态</th>
+            <th>支付方式</th>
+            <th>配送方式</th>
+            <th>下单时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <input type="checkbox" name="" lay-skin="primary"></td>
+            <td>2017009171822298053</td>
+            <td>老王:18925139194</td>
+            <td>7829.10</td>
+            <td>7854.10</td>
+            <td>待确认</td>
+            <td>未支付</td>
+            <td>未发货</td>
+            <td>其他方式</td>
+            <td>申通物流</td>
+            <td>2017-08-17 18:22</td>
+            <td class="td-manage">
+                <a title="查看" onclick="xadmin.open('编辑','{% url 'access_device_search' %}')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i></a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="" lay-skin="primary"></td>
+            <td>2017009171822298053</td>
+            <td>老王:18925139194</td>
+            <td>7829.10</td>
+            <td>7854.10</td>
+            <td>待确认</td>
+            <td>未支付</td>
+            <td>未发货</td>
+            <td>其他方式</td>
+            <td>申通物流</td>
+            <td>2017-08-17 18:22</td>
+            <td class="td-manage">
+                <a title="查看" onclick="xadmin.open('编辑','order-view.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i></a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="" lay-skin="primary"></td>
+            <td>2017009171822298053</td>
+            <td>老王:18925139194</td>
+            <td>7829.10</td>
+            <td>7854.10</td>
+            <td>待确认</td>
+            <td>未支付</td>
+            <td>未发货</td>
+            <td>其他方式</td>
+            <td>申通物流</td>
+            <td>2017-08-17 18:22</td>
+            <td class="td-manage">
+                <a title="查看" onclick="xadmin.open('编辑','order-view.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i></a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+
+

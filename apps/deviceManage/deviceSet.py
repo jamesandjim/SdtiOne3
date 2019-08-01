@@ -56,6 +56,9 @@ def search_dev():
             list_devs1 = set(list_devs)
             list_devs2 = list(list_devs1)
 
+        else:
+            list_devs2 = []
+
     return list_devs2
 
 

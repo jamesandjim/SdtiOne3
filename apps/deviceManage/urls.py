@@ -6,17 +6,15 @@
 # @File    : urls.py
 # @Software: PyCharm
 from django.conf.urls import url, include
+from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 
-from .views import DeviceSet
-from .views import dev_add, dev_list, dev_search
+
+from . import views
 
 
 urlpatterns = [
-    url(r'^deviceset/', csrf_exempt(DeviceSet.as_view())),
-
-    url(r'^list/', dev_list),
-    url(r'^add/', dev_add),
-    url(r'^search/', dev_search),
-
+    path('acc_list', views.acc_list, name='acc_list'),
+    path('acc_add', views.acc_add, name='acc_add'),
+    path('acc_search', views.acc_search, name='acc_search'),
 ]

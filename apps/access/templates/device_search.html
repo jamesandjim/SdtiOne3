@@ -1,0 +1,103 @@
+{% extends 'common/base_tab.html' %}
+
+{% block title %}搜索门禁设备{% endblock %}
+
+
+{% block content_header %}
+    <div class="layui-card-header">查询与操作</div>
+    <div class="layui-card-body layui-col-md12">
+        <button class="layui-btn" onclick="xadmin.open('自动搜索控制器','{% url 'access_device_search' %}',1080,800)"><i
+                class="layui-icon">&#xe615;</i>自动搜索控器
+        </button>
+        <button class="layui-btn" onclick="xadmin.open('添加全部控制器到系统','{% url 'access_device_search' %}',900,600)"><i
+                class="layui-icon">&#xe615;</i>添加全部控制器到系统
+        </button>
+    </div>
+{% endblock %}
+
+
+{% block content_body_list %}
+
+    <table class="layui-table layui-form" id="devices" lay-filter="test">
+        <thead>
+        <tr>
+            <th>
+                <input type="checkbox" name="" lay-skin="primary">
+            </th>
+            <th>设备sn</th>
+            <th>设备ip</th>
+            <th>子网掩码</th>
+            <th>网关</th>
+            <th>MAC地址</th>
+            <th>硬件版本</th>
+
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for dev in devs %}
+            <tr>
+                <td><input type="checkbox" name="" lay-skin="primary"></td>
+                <td>{{ dev.sn }}</td>
+                <td>{{ dev.ip }}</td>
+                <td>{{ dev.netmask }}</td>
+                <td>{{ dev.netgate }}</td>
+                <td>{{ dev.mac }}</td>
+                <td>{{ dev.ver }}</td>
+
+                <td class="td-manage">
+                    <a href="{% url 'access_device_add_one' %}" class="layui-btn layui-btn-normal">
+                        <i class="layui-icon">&#xe654;</i>添加到系统</a>
+
+                    <a href="{% url 'access_device_add_one' %}" class="layui-btn layui-btn-normal">
+                        <i class="layui-icon">&#xe642;</i>修改参数</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        layui.use(['form', 'layer', 'jquery', 'laydate', 'element', 'table'],
+            function () {
+                $ = layui.jquery;
+                var form = layui.form,
+                    layer = layui.layer,
+                    element = layui.element,
+                    table = layui.table,
+                    laydate = layui.laydate;
+
+
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#start' //指定元素
+                });
+
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#end' //指定元素
+                });
+
+
+                table.on('row(devices)', function (obj) {
+                    var data = obj.data;
+
+                    layer.alert(JSON.stringify(data), {
+                        title: '当前行数据：'
+                    });
+
+                    //标注选中样式
+                    obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+                });
+
+
+            });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'common/base_list.html' %}
+
+{% block title %}搜索门禁设备{% endblock %}
+
+
+{% block content_body_operation %}
+
+
+    <button class="layui-btn" onclick="{% url 'acc_search' %}">
+        <i class="layui-icon">&#xe615;</i>搜索控制器
+    </button>
+    <button class="layui-btn" onclick="{% url 'acc_search' %}">
+        <i class="layui-icon">&#xe615;</i>添加全部控制器
+    </button>
+    <button class="layui-btn" onclick="{% url 'acc_search' %}">
+        <i class="layui-icon">&#xe615;</i>添加选中控制器
+    </button>
+{% endblock %}
+
+
+{% block content_body_list %}
+
+    <table class="layui-table layui-form">
+        <thead>
+        <tr>
+            <th>
+                <input type="checkbox" name="" lay-skin="primary">
+            </th>
+            <th>设备sn</th>
+            <th>设备ip</th>
+            <th>子网掩码</th>
+            <th>网关</th>
+            <th>MAC地址</th>
+            <th>硬件版本</th>
+
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for dev in devs %}
+        <tr>
+            <td><input type="checkbox" name="" lay-skin="primary"></td>
+            <td>{{ dev.sn }}</td>
+            <td>{{ dev.ip }}</td>
+            <td>{{ dev.netmask }}</td>
+            <td>{{ dev.netgate}}</td>
+            <td>{{ dev.mac }}</td>
+            <td>{{ dev.ver }}</td>
+
+            <td class="td-manage">
+                <a title="添加控制器" onclick="xadmin.open('编辑','{% url 'acc_add' %}')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i></a>
+
+            </td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
