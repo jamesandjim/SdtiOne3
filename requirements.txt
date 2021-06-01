@@ -41,7 +41,7 @@ tablib==0.13.0
 Twisted==19.2.1
 txaio==18.8.1
 unicodecsv==0.14.1
-urllib3==1.24.1
+urllib3==1.26.5
 xlrd==1.2.0
 xlwt==1.3.0
 zope.interface==4.6.0
